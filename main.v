@@ -4,11 +4,10 @@ import os
 import time
 import strconv
 import net.http
+import days
 
 fn main() {
-	days := [fn (input string) !(string, string) {
-		return error('Not implemented')
-	}]
+	days := [days.day_one]
 
 	now := time.utc()
 	mut day := 0
