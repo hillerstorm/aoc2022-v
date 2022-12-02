@@ -4,11 +4,9 @@ import arrays
 import strconv
 
 pub fn day_one(input string) !(string, string) {
-	mut mapped_elves := input.split('\n\n').map(fn (elf string) int {
-		return arrays.sum(elf.split_into_lines().map(fn (cals string) int {
-			return strconv.atoi(cals) or { 0 }
-		})) or { 0 }
-	})
+	mut mapped_elves := input.split('\n\n')
+		.map(arrays.sum(it.split_into_lines()
+			.map(strconv.atoi(it)!))!)
 
 	mapped_elves.sort(b < a)
 	part_one := arrays.max(mapped_elves)!
