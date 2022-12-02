@@ -46,6 +46,7 @@ fn main() {
 
 	if day >= days.len {
 		println('No code has been written for day ${day} yet')
+		return
 	}
 
 	fun := days[day - 1]
