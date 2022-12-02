@@ -44,7 +44,7 @@ fn main() {
 		return
 	}
 
-	if day >= days.len {
+	if day > days.len {
 		println('No code has been written for day ${day} yet')
 		return
 	}
