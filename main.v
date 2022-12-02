@@ -7,7 +7,10 @@ import net.http
 import days
 
 fn main() {
-	days := [days.day_one]
+	days := [
+		days.day_one,
+		days.day_two,
+	]
 
 	now := time.utc()
 	mut day := 0
