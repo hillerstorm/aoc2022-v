@@ -4,8 +4,8 @@ import arrays
 import strconv
 
 pub fn day_one(input string) !(string, string) {
-	mut mapped_elves := arrays.map_indexed(input.split('\n\n'), fn (_ int, elf string) int {
-		return arrays.sum(arrays.map_indexed(elf.split_into_lines(), fn (_ int, cals string) int {
+	mut mapped_elves := input.split('\n\n').map(fn (elf string) int {
+		return arrays.sum(elf.split_into_lines().map(fn (cals string) int {
 			return strconv.atoi(cals) or { 0 }
 		})) or { 0 }
 	})
