@@ -18,11 +18,8 @@ pub fn day_four(input string) !(string, string) {
 			part_one += 1
 			part_two += 1
 			continue
-		} else {
-			// Can't use else-if because of a compiler bug
-			if pair[0].any(it in pair[1]) || pair[1].any(it in pair[0]) {
-				part_two += 1
-			}
+		} else if pair[0].any(it in pair[1]) || pair[1].any(it in pair[0]) {
+			part_two += 1
 		}
 	}
 
