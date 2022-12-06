@@ -1,6 +1,6 @@
 module days
 
-import os
+import os { exists, read_file }
 
 struct TestFixture {
 	buffer            string
@@ -16,8 +16,8 @@ struct TestInputConfig {
 fn read_input(config TestInputConfig) string {
 	input_path := 'days/test_inputs/day_${config.day:02}_${config.version:02}.txt'
 
-	if os.exists(input_path) {
-		return os.read_file(input_path) or { panic(err) }
+	if exists(input_path) {
+		return read_file(input_path) or { panic(err) }
 	}
 
 	panic('invalid input file: ${input_path}')
@@ -29,4 +29,8 @@ fn run_tests(day fn (input string) !(string, string), tests []TestFixture) {
 		assert part_one == test.expected_part_one
 		assert part_two == test.expected_part_two
 	}
+}
+
+fn range(from int, to int) []int {
+	return []int{len: (to - from) + 1, init: it + from}
 }

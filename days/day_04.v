@@ -1,13 +1,11 @@
 module days
 
-import helpers
-
 pub fn day_four(input string) !(string, string) {
 	pairs := input.split_into_lines()
 		.map(it.split(',').map(it.split('-')))
 		.map([
-			helpers.range(it[0][0].int(), it[0][1].int()),
-			helpers.range(it[1][0].int(), it[1][1].int()),
+			range(it[0][0].int(), it[0][1].int()),
+			range(it[1][0].int(), it[1][1].int()),
 		])
 
 	mut part_one := 0

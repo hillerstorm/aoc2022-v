@@ -1,26 +1,35 @@
 module main
 
 import os
-import time
-import strconv
-import net.http
-import days
+import strconv { atoi }
+import time {
+	parse,
+	utc,
+}
+import days {
+	day_five,
+	day_four,
+	day_one,
+	day_six,
+	day_three,
+	day_two,
+}
 
 fn main() {
 	days := [
-		days.day_one,
-		days.day_two,
-		days.day_three,
-		days.day_four,
-		days.day_five,
-		days.day_six,
+		day_one,
+		day_two,
+		day_three,
+		day_four,
+		day_five,
+		day_six,
 	]
 
-	now := time.utc()
+	now := utc()
 	mut day := 0
 	if os.args.len == 1 {
 		println('No day given, trying latest')
-		max := time.parse('2022-12-25 05:00:00') or {
+		max := parse('2022-12-25 05:00:00') or {
 			println(err)
 			return
 		}
@@ -30,13 +39,13 @@ fn main() {
 			day = now.day
 		}
 	} else {
-		day = strconv.atoi(os.args[1]) or {
+		day = atoi(os.args[1]) or {
 			println('Invalid input, must be a valid number ${err}')
 			return
 		}
 	}
 
-	then := time.parse('2022-12-${day} 05:00:00') or {
+	then := parse('2022-12-${day} 05:00:00') or {
 		println(err)
 		return
 	}
@@ -65,35 +74,4 @@ fn main() {
 	println('[Day ${day}]')
 	println('Part one: ${part_one}')
 	println('Part two: ${part_two}')
-}
-
-fn get_input(day int) !string {
-	input_path := 'inputs/${day}.txt'
-	if os.exists(input_path) {
-		return os.read_file(input_path)!
-	}
-
-	println('Input file not found, downloading...')
-	if !os.exists('.session') {
-		return error('No .session file found, save value from Cookie header on your aoc page')
-	}
-
-	session := os.read_file('.session')!
-	res := http.fetch(
-		method: .get
-		url: 'https://adventofcode.com/2022/day/${day}/input'
-		cookies: {
-			'session': session
-		}
-	)!
-
-	if res.body.len == 0 {
-		return error('Empty input')
-	}
-
-	println('Downloaded input, saving to disk')
-
-	os.write_file(input_path, res.body)!
-
-	return res.body
 }

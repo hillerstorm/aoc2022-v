@@ -40,5 +40,6 @@ pub fn day_three(input string) !(string, string) {
 			}
 		}
 	}
+
 	return part_one.str(), part_two.str()
 }

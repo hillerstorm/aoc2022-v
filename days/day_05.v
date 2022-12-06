@@ -1,7 +1,7 @@
 module days
 
-import regex
-import datatypes as dt
+import regex { regex_opt }
+import datatypes { Stack }
 
 pub fn day_five(input string) !(string, string) {
 	parts := input.split('\n\n')
@@ -15,7 +15,7 @@ pub fn day_five(input string) !(string, string) {
 		}
 	}
 
-	mut part_one := []dt.Stack[rune]{len: indices.len, init: dt.Stack[rune]{}}
+	mut part_one := []Stack[rune]{len: indices.len, init: Stack[rune]{}}
 	mut part_two := [][]rune{len: indices.len, init: []rune{}}
 
 	for row in rows {
@@ -30,14 +30,15 @@ pub fn day_five(input string) !(string, string) {
 	}
 
 	query := r'^move (\d+) from (\d+) to (\d+)$'
-	for move in parts[1].split_into_lines() {
-		mut re := regex.regex_opt(query) or { return error('invalid move: ${move}') }
-		_, _ := re.match_string(move)
-		groups := re.get_group_list()
+	mut re := regex_opt(query) or { return error('invalid move: ${err}') }
 
-		amount := move[groups[0].start..groups[0].end].int()
-		from := move[groups[1].start..groups[1].end].int() - 1
-		to := move[groups[2].start..groups[2].end].int() - 1
+	for move in parts[1].split_into_lines() {
+		re.match_string(move)
+		groups := re.get_group_list().map(move[it.start..it.end].int())
+
+		amount := groups[0]
+		from := groups[1] - 1
+		to := groups[2] - 1
 
 		for _ in 0 .. amount {
 			part_one[to].push(part_one[from].pop()!)
