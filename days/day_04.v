@@ -2,10 +2,10 @@ module days
 
 pub fn day_four(input string) !(string, string) {
 	pairs := input.split_into_lines()
-		.map(it.split(',').map(it.split('-')))
+		.map(it.split(',').map(it.split('-').map(it.int())))
 		.map([
-			range(it[0][0].int(), it[0][1].int()),
-			range(it[1][0].int(), it[1][1].int()),
+			range(it[0][0], it[0][1]),
+			range(it[1][0], it[1][1]),
 		])
 
 	mut part_one := 0
