@@ -1,7 +1,6 @@
 module main
 
-import os
-import strconv { atoi }
+import os { read_file }
 import time {
 	parse,
 	utc,
@@ -39,10 +38,7 @@ fn main() {
 			day = now.day
 		}
 	} else {
-		day = atoi(os.args[1]) or {
-			println('Invalid input, must be a valid number ${err}')
-			return
-		}
+		day = os.args[1].int()
 	}
 
 	then := parse('2022-12-${day} 05:00:00') or {
@@ -55,9 +51,16 @@ fn main() {
 		return
 	}
 
-	input := get_input(day) or {
-		println(err)
-		return
+	input := match os.args.len {
+		3 {
+			read_file(os.args[2])!
+		}
+		else {
+			get_input(day) or {
+				println(err)
+				return
+			}
+		}
 	}
 
 	if day > days.len {
