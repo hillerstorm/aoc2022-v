@@ -5,23 +5,17 @@ import time {
 	parse,
 	utc,
 }
-import days {
-	day_five,
-	day_four,
-	day_one,
-	day_six,
-	day_three,
-	day_two,
-}
+import days
 
 fn main() {
 	days := [
-		day_one,
-		day_two,
-		day_three,
-		day_four,
-		day_five,
-		day_six,
+		days.day_one,
+		days.day_two,
+		days.day_three,
+		days.day_four,
+		days.day_five,
+		days.day_six,
+		days.day_seven,
 	]
 
 	now := utc()
