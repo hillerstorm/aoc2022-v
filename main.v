@@ -20,6 +20,7 @@ fn main() {
 		days.day_nine,
 		days.day_ten,
 		days.day_eleven,
+		days.day_twelve,
 	]
 
 	now := utc()
